@@ -13,7 +13,10 @@ public class FPSController : MonoBehaviour
     public float jumpPower = 8f;
     public float gravity = 28f;
 
-    public bool walling = false;
+    //public bool walling = false;
+
+    public GameObject walls;
+    private PlayerCollision aquireWall;
 
 
     public float lookSpeed = 2f;
@@ -34,6 +37,7 @@ public class FPSController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        aquireWall = walls.GetComponent<PlayerCollision>();
     }
 
     // Update is called once per frame
@@ -52,7 +56,7 @@ public class FPSController : MonoBehaviour
         #endregion
 
         #region Handles Jumping
-        if (Input.GetButton("Jump") && canMove && (characterController.isGrounded || walling ))
+        if (Input.GetButton("Jump") && canMove && (characterController.isGrounded || aquireWall.walling ))
         {
             moveDirection.y = jumpPower;
         }
@@ -61,7 +65,7 @@ public class FPSController : MonoBehaviour
             moveDirection.y = movementDirectionY;
         }
 
-        if (!characterController.isGrounded && walling ==false)
+        if (!characterController.isGrounded && aquireWall.walling == false)
         {
             moveDirection.y -= gravity * Time.deltaTime;
         }

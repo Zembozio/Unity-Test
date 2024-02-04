@@ -12,17 +12,18 @@ public class PlayerCollision : MonoBehaviour
     {
         Debug.Log("test" + collisionInfo.collider.name);
 
-        collisionInfo.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        
 
-        if (collisionInfo.collider.tag == "pillar")
+        if (collisionInfo.collider.tag == "Pillar")
         {
+            collisionInfo.gameObject.GetComponent<Renderer>().material.color = Color.blue;
             walling = true;
         }
     }
 
     void OnCollisionStay(Collision collisionInfo)
     {
-        if (collisionInfo.collider.tag == "pillar")
+        if (collisionInfo.collider.tag == "Pillar")
         {
             walling = true;
         }
@@ -30,6 +31,13 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionExit(Collision collisionInfo)
     {
+
+        if (collisionInfo.collider.tag == "Floor")
+        {
+
+        }
+        else 
+        collisionInfo.gameObject.GetComponent<Renderer>().material.color = Color.red;
         walling = false;
     }
 }
